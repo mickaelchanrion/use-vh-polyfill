@@ -1,6 +1,9 @@
-# use-vh-polyfill
+# useVhPolyfill
 
-Adds support for svh, dvh and lvh CSS viewport units using CSS variables.
+This polyfill adds support for the incoming viewport units `svh`, `dvh` and `lvh` using CSS variables.
+
+- [Specification](https://www.w3.org/TR/css-values-4/#viewport-relative-lengths)
+- [Current support](https://caniuse.com/viewport-unit-variants)
 
 ## Setup
 
@@ -25,7 +28,7 @@ function onResize() {
   height: calc(var(--svh, 1vh) * 100);
 }
 
-/* ⚠️ Use cautiously: can cause content to resize, performance cost */
+/* ⚠️ Use cautiously: can cause content to resize at performance cost */
 .h-dynamic-screen {
   height: calc(var(--dvh, 1vh) * 100);
 }
@@ -37,19 +40,41 @@ function onResize() {
 
 ## API
 
+The function `useVhPolyfill` will return:
+
+```ts
+{
+  values: {
+    svh: number,
+    dvh: number,
+    lvh: number,
+  },
+  update: function,
+  destroy: function,
+}
+```
+
 ### Properties
 
-- values.svh
-- values.dvh
-- values.lvh
+#### `values.svh`
+
+The smallest viewport height.
+
+#### `values.dvh`
+
+The current viewport height.
+
+#### `values.lvh`
+
+The largest viewport height.
 
 ### Methods
 
-#### update
+#### `update`
 
 Update the values and the CSS variables.
 Usually called on a resize event.
 
-### destroy
+#### `destroy`
 
 Delete the CSS variables and remove the element `.vh-polyfill-lvh`.
